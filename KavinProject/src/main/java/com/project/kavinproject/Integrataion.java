@@ -18,10 +18,9 @@ import org.json.JSONObject;
 public class Integrataion {
 
     public void getEmployeeFromZingHR() {
-        JSONObject jsono = new JSONObject("{\"Token\":\"d050cfe1270842e694f93d3cd3e3cceb\",\"SubscriptionName\":\"sfpluat\", \"PageSize\":\"10\",\"PageNumber\":1}");
+        JSONObject jsono = new JSONObject("{\"Token\":\"d050cfe1270842e694f93d3cd3e3cceb\",\"SubscriptionName\":\"sfpluat\", \"PageSize\":\"20\",\"PageNumber\":1}");
         CallWebservice callWebservice = new CallWebservice();
         DBOperations dBOperations = new DBOperations();
-        AttributesEmployee attributesEmployee = new AttributesEmployee();
         String responseOutput = callWebservice.callRestServiceWithBasicAuth("POST", "https://clientuat.zinghr.com/2015/route/EmployeeDetails/GetEmployeeMasterDetails", "ZINGHR", "SUGUNA", jsono.toString(), "application/json");
         JSONObject jsonresult = new JSONObject(responseOutput);
         JSONArray jsonArray = jsonresult.getJSONArray("Employees");
@@ -30,51 +29,82 @@ public class Integrataion {
         JSONArray attributeJSONArray;
         List<Employee> employeeList = new ArrayList<>();
         for (int i = 0; i < jsonArray.length(); i++) {
+            Employee employeeObject = new Employee();
+
             employeeJsonObject = (JSONObject) jsonArray.get(i);
             attributeJSONArray = employeeJsonObject.getJSONArray("Attributes");
             for (int atrributeCounter = 0; atrributeCounter < attributeJSONArray.length(); atrributeCounter++) {
                 attributeJSONObject = attributeJSONArray.getJSONObject(atrributeCounter);
                 switch (attributeJSONObject.getString("AttributeTypeDesc")) {
                     case AttributesEmployeeConstants.company:
-                        attributesEmployee.setCompany(attributeJSONObject.getString("AttributeTypeUnitDesc"));
-                        break;
-                    case AttributesEmployeeConstants.designation:
-                        attributesEmployee.setDesignation(attributeJSONObject.getString("AttributeTypeUnitDesc"));
-                        break;
-                    case AttributesEmployeeConstants.level:
-                        attributesEmployee.setLevel(attributeJSONObject.getString("AttributeTypeUnitDesc"));
-                        break;
-                    case AttributesEmployeeConstants.orgLocation:
-                        attributesEmployee.setOrgLocation(attributeJSONObject.getString("AttributeTypeUnitDesc"));
+                        employeeObject.setCompany(attributeJSONObject.getString("AttributeTypeUnitDesc"));
                         break;
                     case AttributesEmployeeConstants.orgName:
-                        attributesEmployee.setOrgName(attributeJSONObject.getString("AttributeTypeUnitDesc"));
+                        employeeObject.setOrganization(attributeJSONObject.getString("AttributeTypeUnitDesc"));
                         break;
+                    case AttributesEmployeeConstants.orgLocation:
+                        employeeObject.setLocation(attributeJSONObject.getString("AttributeTypeUnitDesc"));
+                        break;
+                    case AttributesEmployeeConstants.designation:
+                        employeeObject.setDesignation(attributeJSONObject.getString("AttributeTypeUnitDesc"));
+                        break;
+                    case AttributesEmployeeConstants.level:
+                        employeeObject.setGrade(attributeJSONObject.getString("AttributeTypeUnitDesc"));
+                        break;
+                    case AttributesEmployeeConstants.strategicBusinessUnit:
+                        employeeObject.setStrategicBusinessUnit(attributeJSONObject.getString("AttributeTypeUnitDesc"));
+                        break;
+                    case AttributesEmployeeConstants.zone:
+                        employeeObject.setZone(attributeJSONObject.getString("AttributeTypeUnitDesc"));
+                        break;
+                    case AttributesEmployeeConstants.businessUnit:
+                        employeeObject.setBusinessUnit(attributeJSONObject.getString("AttributeTypeUnitDesc"));
+                        break;
+                    case AttributesEmployeeConstants.cluster:
+                        employeeObject.setCluster(attributeJSONObject.getString("AttributeTypeUnitDesc"));
+                        break;
+                    case AttributesEmployeeConstants.division:
+                        employeeObject.setDivison(attributeJSONObject.getString("AttributeTypeUnitDesc"));
+                        break;
+                    case AttributesEmployeeConstants.subDivision:
+                        employeeObject.setSubDivision(attributeJSONObject.getString("AttributeTypeUnitDesc"));
+                        break;
+                    case AttributesEmployeeConstants.department:
+                        employeeObject.setDepartment(attributeJSONObject.getString("AttributeTypeUnitDesc"));
+                        break;
+                    case AttributesEmployeeConstants.functionalGrouping:
+                        employeeObject.setFunctionalGrouping(attributeJSONObject.getString("AttributeTypeUnitDesc"));
+                        break;
+                    case AttributesEmployeeConstants.subDepartment:
+                        employeeObject.setSubDepartment(attributeJSONObject.getString("AttributeTypeUnitDesc"));
+                        break;
+                    case AttributesEmployeeConstants.subLevel:
+                        employeeObject.setSubLevel(attributeJSONObject.getString("AttributeTypeUnitDesc"));
+                        break;
+                    case AttributesEmployeeConstants.positionCode:
+                        employeeObject.setPositionCode(attributeJSONObject.getString("AttributeTypeUnitDesc"));
+                        break;
+
                 }
             }
-//            System.out.println(i + ". Company : " + attributesEmployee.getCompany());
-//            System.out.println(i + ". Org name : " + attributesEmployee.getOrgName());
-//            System.out.println(i + ". Org locationm : " + attributesEmployee.getOrgLocation());
-//            System.out.println(i + ". designation : " + attributesEmployee.getDesignation());
-
-            employeeList.add(new Employee(
-                    employeeJsonObject.getString("EmployeeCode"),
-                    employeeJsonObject.getString("FirstName"),
-                    employeeJsonObject.getString("LastName"),
-                    employeeJsonObject.getString("Salutation"),
-                    employeeJsonObject.getString("MiddleName"),
-                    employeeJsonObject.getString("Gender"),
-                    employeeJsonObject.getString("DateofBirth"),
-                    employeeJsonObject.getString("MaritalStatus"),
-                    employeeJsonObject.getString("Nationality"),
-                    employeeJsonObject.getString("Email"),
-                    attributesEmployee.getCompany(),
-                    attributesEmployee.getOrgName(),
-                    attributesEmployee.getOrgLocation(),
-                    attributesEmployee.getLevel(),
-                    attributesEmployee.getDesignation()
-            )
-            );
+            employeeObject.setEmployeeCode(employeeJsonObject.getString("EmployeeCode"));
+            employeeObject.setFirstName(employeeJsonObject.getString("FirstName"));
+            employeeObject.setLastName(employeeJsonObject.getString("LastName"));
+            employeeObject.setSalutation(employeeJsonObject.getString("Salutation"));
+            employeeObject.setGender(employeeJsonObject.getString("Gender"));
+            employeeObject.setEmploymentType(employeeJsonObject.getString("EmploymentType"));
+            employeeObject.setDateofBirth(employeeJsonObject.getString("DateofBirth"));
+            employeeObject.setAge(employeeJsonObject.getString("Age"));
+            employeeObject.setEmail(employeeJsonObject.getString("Email"));
+            employeeObject.setPanNumber(employeeJsonObject.getString("PAN"));
+            employeeObject.setPfAccountNumber(employeeJsonObject.getString("PFAccountNumber"));
+            employeeObject.setUanNumber(employeeJsonObject.getString("UAN"));
+            employeeObject.setDateOfJoining(employeeJsonObject.getString("DateofJoining"));
+            employeeObject.setDateOfLeaving(employeeJsonObject.getString("DateOfLeaving"));
+            employeeObject.setDateOfConfirmation(employeeJsonObject.getString("DateofConfirmation"));
+            employeeObject.setMobileNumber(employeeJsonObject.getString("Mobile"));
+            employeeObject.setEmployeeStatus(employeeJsonObject.getString("EmployeeStatus"));
+            employeeList.add(employeeObject);
         }
         System.out.println(employeeList.get(0).toString());
         dBOperations.insertEmployee(employeeList);
