@@ -49,6 +49,155 @@ public class Employee {
     private String employeeStatus;
 //    private String assignmentNumber;
 
+    // Newly Added columns
+    private String employmentStatus;
+    private String accountNumber;
+    private String accountType;
+    private String bankName;
+    private String branchName;
+    private String ifscCode;
+    private String accountHolderName;
+    private String paymentMode;
+    private String reportingManagerName;
+    private String reportingManagerCode;
+    private String middleName;
+    private String nationality;
+    private String operations;
+    private String martialStatus;
+    private String systemCode;
+    private String section;
+
+    public String getSystemCode() {
+        return systemCode;
+    }
+
+    public void setSystemCode(String systemCode) {
+        this.systemCode = systemCode;
+    }
+
+    public String getSection() {
+        return section;
+    }
+
+    public void setSection(String section) {
+        this.section = section;
+    }
+
+    public String getMartialStatus() {
+        return martialStatus;
+    }
+
+    public void setMartialStatus(String martialStatus) {
+        this.martialStatus = martialStatus;
+    }
+    
+    public String getOperations() {
+        return operations;
+    }
+
+    public void setOperations(String operations) {
+        this.operations = operations;
+    }
+    
+    
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+    public String getNationality() {
+        return nationality;
+    }
+
+    public void setNationality(String nationality) {
+        this.nationality = nationality;
+    }
+
+    public String getEmploymentStatus() {
+        return employmentStatus;
+    }
+
+    public void setEmploymentStatus(String employmentStatus) {
+        this.employmentStatus = employmentStatus;
+    }
+
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
+    }
+
+   
+
+    public String getAccountType() {
+        return accountType;
+    }
+
+    public void setAccountType(String accountType) {
+        this.accountType = accountType;
+    }
+
+    public String getBankName() {
+        return bankName;
+    }
+
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
+    }
+
+    public String getBranchName() {
+        return branchName;
+    }
+
+    public void setBranchName(String branchName) {
+        this.branchName = branchName;
+    }
+
+    public String getIfscCode() {
+        return ifscCode;
+    }
+
+    public void setIfscCode(String ifscCode) {
+        this.ifscCode = ifscCode;
+    }
+
+    public String getAccountHolderName() {
+        return accountHolderName;
+    }
+
+    public void setAccountHolderName(String accountHolderName) {
+        this.accountHolderName = accountHolderName;
+    }
+
+    public String getPaymentMode() {
+        return paymentMode;
+    }
+
+    public void setPaymentMode(String paymentMode) {
+        this.paymentMode = paymentMode;
+    }
+
+    public String getReportingManagerName() {
+        return reportingManagerName;
+    }
+
+    public void setReportingManagerName(String reportingManagerName) {
+        this.reportingManagerName = reportingManagerName;
+    }
+
+    public String getReportingManagerCode() {
+        return reportingManagerCode;
+    }
+
+    public void setReportingManagerCode(String reportingManagerCode) {
+        this.reportingManagerCode = reportingManagerCode;
+    }
+
     public Employee() {
     }
 
@@ -340,9 +489,17 @@ public class Employee {
 // public void setAssignmentNumber(String assignmentNumber) {
 //        this.assignmentNumber = assignmentNumber;
 //    }
+
     @Override
     public String toString() {
-        return "Employee{" + "employeeCode=" + employeeCode + ", firstName=" + firstName + ", lastName=" + lastName + ", salutation=" + salutation + ", gender=" + gender + ", employmentType=" + employmentType + ", company=" + company + ", dateofBirth=" + dateofBirth + ", age=" + age + ", email=" + email + ", panNumber=" + panNumber + ", pfAccountNumber=" + pfAccountNumber + ", uanNumber=" + uanNumber + ", dateOfJoining=" + dateOfJoining + ", dateOfLeaving=" + dateOfLeaving + ", dateOfConfirmation=" + dateOfConfirmation + ", mobileNumber=" + mobileNumber + ", organization=" + organization + ", location=" + location + ", designation=" + designation + ", positionCode=" + positionCode + ", grade=" + grade + ", strategicBusinessUnit=" + strategicBusinessUnit + ", zone=" + zone + ", businessUnit=" + businessUnit + ", cluster=" + cluster + ", divison=" + divison + ", subDivision=" + subDivision + ", department=" + department + ", functionalGrouping=" + functionalGrouping + ", subDepartment=" + subDepartment + ", subLevel=" + subLevel + ", employeeStatus=" + employeeStatus + '}';
+        return "Employee{" + "employeeCode=" + employeeCode + ", firstName=" + firstName + ", lastName=" + lastName + ", salutation=" + salutation + ", gender=" + gender + ", employmentType=" + employmentType + ", company=" + company + ", dateofBirth=" + dateofBirth + ", age=" + age + ", email=" + email + ", panNumber=" + panNumber + ", pfAccountNumber=" + pfAccountNumber + ", uanNumber=" + uanNumber + ", dateOfJoining=" + dateOfJoining + ", dateOfLeaving=" + dateOfLeaving + ", dateOfConfirmation=" + dateOfConfirmation + ", mobileNumber=" + mobileNumber + ", organization=" + organization + ", location=" + location + ", designation=" + designation + ", positionCode=" + positionCode + ", grade=" + grade + ", strategicBusinessUnit=" + strategicBusinessUnit + ", zone=" + zone + ", businessUnit=" + businessUnit + ", cluster=" + cluster + ", divison=" + divison + ", subDivision=" + subDivision + ", department=" + department + ", functionalGrouping=" + functionalGrouping + ", subDepartment=" + subDepartment + ", subLevel=" + subLevel + ", employeeStatus=" + employeeStatus + ", employmentStatus=" + employmentStatus + ", accountNumber=" + accountNumber + ", accountType=" + accountType + ", bankName=" + bankName + ", branchName=" + branchName + ", ifscCode=" + ifscCode + ", accountHolderName=" + accountHolderName + ", paymentMode=" + paymentMode + ", reportingManagerName=" + reportingManagerName + ", reportingManagerCode=" + reportingManagerCode + ", middleName=" + middleName + ", nationality=" + nationality + ", operations=" + operations + ", martialStatus=" + martialStatus + ", systemCode=" + systemCode + ", section=" + section + '}';
     }
+
+   
+  
+
+    
+
+   
 
 }

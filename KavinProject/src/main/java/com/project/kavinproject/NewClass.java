@@ -13,7 +13,7 @@ public class NewClass {
 
     public static void main(String[] args) {
         Integrataion integrtaion = new Integrataion();
-        integrtaion.getEmployeeFromZingHR();
+        integrtaion.getEmployeeFromZingHR("Edit");
 
     }
 }

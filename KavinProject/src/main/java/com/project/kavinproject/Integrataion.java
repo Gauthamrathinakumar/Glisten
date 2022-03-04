@@ -17,22 +17,49 @@ import org.json.JSONObject;
  */
 public class Integrataion {
 
-    public void getEmployeeFromZingHR() {
-        JSONObject jsono = new JSONObject("{\"Token\":\"d050cfe1270842e694f93d3cd3e3cceb\",\"SubscriptionName\":\"sfpluat\", \"PageSize\":\"20\",\"PageNumber\":1}");
+    public void getEmployeeFromZingHR(String operations) {
+        JSONObject jsono = new JSONObject(
+                "{\n"
+                + "    \"SubscriptionName\": \"sfpluat\",\n"
+                + "    \"Token\": \"d050cfe1270842e694f93d3cd3e3cceb\",\n"
+                + "    \"PageSize\": \"400\",\n"
+                + "    \"PageNumber\": \"4\",\n"
+                + "    \"Fromdate\": \"14-02-2022 11:00:00\",\n"
+                + "    \"Todate\": \"28-02-2022 12:00:00\",\n"
+                + "    \"EmpFlag\": \"" + operations + "\"\n"
+                + "}"
+        //                "{\"Token\":\"d050cfe1270842e694f93d3cd3e3cceb\",\"SubscriptionName\":\"sfpluat\", \"PageSize\":\"20\",\"PageNumber\":1}"
+        //                "{\n"
+        //                + "    \"SubscriptionName\": \"sfpluat\",\n"
+        //                + "    \"Token\": \"d050cfe1270842e694f93d3cd3e3cceb\",\n"
+        //                + "    \"PageSize\":\"16\",\n"
+        //                + "    \"PageNumber\":\"1\",\n"
+        //                + "    \"Fromdate\":\"11-01-2022 11:00:00\",\n"
+        //                + "    \"Todate\":\"17-01-2022 12:00:00\"\n"
+        //                + "}"
+        //                "{\n"
+        //                + "    \"SubscriptionName\": \"sfpluat\",\n"
+        //                + "    \"Token\": \"d050cfe1270842e694f93d3cd3e3cceb\",\n"
+        //                + "    \"PageSize\":\"100\",\n"
+        //                + "    \"PageNumber\":\"1\",\n"
+        //                + "    \"EmpFlag\":\"Edit\"\n"
+        //                + "}"
+        );
         CallWebservice callWebservice = new CallWebservice();
         DBOperations dBOperations = new DBOperations();
         String responseOutput = callWebservice.callRestServiceWithBasicAuth("POST", "https://clientuat.zinghr.com/2015/route/EmployeeDetails/GetEmployeeMasterDetails", "ZINGHR", "SUGUNA", jsono.toString(), "application/json");
         JSONObject jsonresult = new JSONObject(responseOutput);
         JSONArray jsonArray = jsonresult.getJSONArray("Employees");
         System.out.println(jsonArray.length());
-        JSONObject employeeJsonObject, attributeJSONObject;
-        JSONArray attributeJSONArray;
+
         List<Employee> employeeList = new ArrayList<>();
+
         for (int i = 0; i < jsonArray.length(); i++) {
             Employee employeeObject = new Employee();
-
+            JSONObject employeeJsonObject, attributeJSONObject, bankJsonObject;
             employeeJsonObject = (JSONObject) jsonArray.get(i);
-            attributeJSONArray = employeeJsonObject.getJSONArray("Attributes");
+            JSONArray attributeJSONArray = employeeJsonObject.getJSONArray("Attributes");
+
             for (int atrributeCounter = 0; atrributeCounter < attributeJSONArray.length(); atrributeCounter++) {
                 attributeJSONObject = attributeJSONArray.getJSONObject(atrributeCounter);
                 switch (attributeJSONObject.getString("AttributeTypeDesc")) {
@@ -104,6 +131,27 @@ public class Integrataion {
             employeeObject.setDateOfConfirmation(employeeJsonObject.getString("DateofConfirmation"));
             employeeObject.setMobileNumber(employeeJsonObject.getString("Mobile"));
             employeeObject.setEmployeeStatus(employeeJsonObject.getString("EmployeeStatus"));
+            employeeObject.setEmploymentStatus(employeeJsonObject.getString("EmploymentStatus"));
+            employeeObject.setReportingManagerName(employeeJsonObject.getString("ReportingManagerName"));
+            employeeObject.setReportingManagerCode(employeeJsonObject.getString("ReportingManagerCode"));
+            employeeObject.setMiddleName(employeeJsonObject.getString("MiddleName"));
+            employeeObject.setNationality(employeeJsonObject.getString("Nationality"));
+            employeeObject.setMartialStatus(employeeJsonObject.getString("MaritalStatus"));
+            employeeObject.setOperations(operations);
+            employeeObject.setSystemCode(employeeJsonObject.getString("SystemCode"));
+            employeeObject.setSection(employeeJsonObject.getString("Sections"));
+            if (employeeJsonObject.has("BankDetails")) {
+                JSONArray bankJsonArray = employeeJsonObject.getJSONArray("BankDetails");
+                bankJsonObject = bankJsonArray.getJSONObject(0);
+                employeeObject.setAccountNumber(bankJsonObject.getString("AccountNo"));
+                employeeObject.setAccountType(bankJsonObject.getString("AccountType"));
+                employeeObject.setAccountHolderName(bankJsonObject.getString("AccountHolderName"));
+                employeeObject.setBankName(bankJsonObject.getString("BankName"));
+                employeeObject.setBranchName(bankJsonObject.getString("BranchName"));
+                employeeObject.setIfscCode(bankJsonObject.getString("IFSCCode"));
+                employeeObject.setPaymentMode(bankJsonObject.getString("OperationType"));
+            }
+
             employeeList.add(employeeObject);
         }
         System.out.println(employeeList.get(0).toString());
